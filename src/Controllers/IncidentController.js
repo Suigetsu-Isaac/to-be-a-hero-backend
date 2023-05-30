@@ -3,11 +3,7 @@ import connection from '../database/connection.js';
 export async function index(request, response) {
     const { page = 1 } = request.query;
     const [count] = await connection('incidents').count();
-
-    const totalIncidents = await connection('incidents')
-
-    console.log(totalIncidents)
-    
+  
 
     const incidents = await connection('incidents')
         .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
