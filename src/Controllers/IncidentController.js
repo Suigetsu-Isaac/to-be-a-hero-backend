@@ -4,7 +4,6 @@ module.exports = {
 
     async index(request,response){
         const { page = 1  } = request.query
-        console.log(page)
         const [count] = await connection('incidents').count()
 
        
