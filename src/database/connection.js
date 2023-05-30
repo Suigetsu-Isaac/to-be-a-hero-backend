@@ -1,7 +1,8 @@
 import knex from 'knex';
-import { test, development } from '../../knexfile.js';
 
-const config = process.env.NODE_ENV === 'test' ? test : development;
+import validate from '../utils/validateConfig.js';
+
+const config = validate(process.env);
 
 const connection = knex(config);
 
