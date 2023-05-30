@@ -21,7 +21,7 @@ export const test = {
   useNullAsDefault: true
 };
 export const production = {
-  client: 'pg',
+  client: 'postgresql',
   connection: {
     
   },
