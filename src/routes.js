@@ -1,17 +1,17 @@
-const express = require('express');
-const { celebrate, Segments, Joi } = require('celebrate');
+import { Router } from 'express';
+import { celebrate, Segments, Joi } from 'celebrate';
 
-const OngsController = require('./Controllers/OngsController');
-const IncidentController = require('./Controllers/IncidentController');
-const ProfileController = require('./Controllers/ProfileController');
-const SessionController = require('./Controllers/SessionController');
+import { index, create } from './Controllers/OngsController.js';
+import { index as _index, create as _create, remove } from './Controllers/IncidentController.js';
+import { index as __index } from './Controllers/ProfileController.js';
+import { create as __create } from './Controllers/SessionController.js';
 
-const routes = express.Router();
+const routes = Router();
 
-routes.post('/session',SessionController.create);
+routes.post('/session',__create);
 
 //Criando Ongs
-routes.get('/ongs', OngsController.index);
+routes.get('/ongs', index);
 //Listando Ongs
 
 routes.post('/ongs', celebrate({
@@ -22,7 +22,7 @@ routes.post('/ongs', celebrate({
         city: Joi.string().required(),
         uf: Joi.string().required().length(2),
     })
-}) ,OngsController.create);
+}) ,create);
 
 
 //Listando Casos(incidents)
@@ -30,21 +30,21 @@ routes.get('/incidents', celebrate({
     [Segments.QUERY] : Joi.object().keys({
         page : Joi.number(),
     }),
-}) ,IncidentController.index);
+}) ,_index);
 //Criando Casos(incidents)
-routes.post('/incidents', IncidentController.create);
+routes.post('/incidents', _create);
 //Deletando Casos(incidents)
 routes.delete('/incidents/:id', celebrate({
     [Segments.PARAMS]: Joi.object().keys({
         id: Joi.number().required(),
     }),
-}) ,IncidentController.delete);
+}) ,remove);
 
 //listando Caso Especifico(profile)
 routes.get('/profile', celebrate({
     [Segments.HEADERS]:Joi.object({
         authorization: Joi.string().required(),
     }).unknown(),
-}) , ProfileController.index);
+}) , __index);
 
-module.exports = routes;
+export default routes;

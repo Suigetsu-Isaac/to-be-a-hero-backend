@@ -1,3 +1,3 @@
-const app = require('./app');
-require('dotenv/config');
-app.listen(process.env.PORT || 3333);
+import app from './app.js';
+
+app.listen(3333);

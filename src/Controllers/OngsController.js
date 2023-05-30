@@ -1,25 +1,27 @@
-const generateUniqueId = require('../utils/generateUniqueId');
-const connection = require('../database/connection');
+import generateUniqueId from '../utils/generateUniqueId.js';
+import connection from '../database/connection.js';
 
-module.exports = {
-    async index(request, response) {
-        const ongs = await connection('ongs').select('*');
-        return response.json(ongs);
-    },
+export async function index(request, response) {
+    const ongs = await connection('ongs').select('*');
+    return response.json(ongs);
+}
+export async function create(request, response) {
+    const { name, email, whatsapp, city, uf } = request.body;
+    const id = generateUniqueId();
 
-    async create(request, response) {
-        const { name, email, whatsapp, city, uf } = request.body;
-        const id = generateUniqueId();
+    await connection('ongs').insert({
+        id,
+        name,
+        email,
+        whatsapp,
+        city,
+        uf,
+    });
 
-        await connection('ongs').insert({
-            id,
-            name,
-            email,
-            whatsapp,
-            city,
-            uf,
-        })
+    return response.json({ id });
+}
 
-        return response.json({ id });
-    }
-};
+export async function remove(request,response){
+    const ong_id = request.headers.authorization;
+
+}
