@@ -17,7 +17,7 @@ describe('ONG', () => {
         .send({
             name : "APAE2",
             email : "apadapad@contatos.com.br",
-            whatsapp: "4700000000",
+            whatsapp: "+554700000000",
             city : "Salgueiro",
             uf : "PE"
         });
