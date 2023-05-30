@@ -21,7 +21,3 @@ export async function create(request, response) {
     return response.json({ id });
 }
 
-export async function remove(request,response){
-    const ong_id = request.headers.authorization;
-
-}

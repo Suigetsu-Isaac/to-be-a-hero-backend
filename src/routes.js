@@ -3,7 +3,7 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 import { index, create } from './Controllers/OngsController.js';
 import { index as _index, create as _create, remove } from './Controllers/IncidentController.js';
-import { index as __index } from './Controllers/ProfileController.js';
+import { index as __index, remove as removeProfile } from './Controllers/ProfileController.js';
 import { create as __create } from './Controllers/SessionController.js';
 
 const routes = Router();
@@ -47,4 +47,10 @@ routes.get('/profile', celebrate({
     }).unknown(),
 }) , __index);
 
+
+routes.delete('/profile',celebrate({
+    [Segments.HEADERS]: Joi.object({
+        authorization: Joi.string().required(),
+    }).unknown(),
+}), removeProfile)
 export default routes;

@@ -9,3 +9,14 @@ export async function index(request, response) {
 
     return response.json(incidents);
 }
+export async function remove(request,response){
+    const ong_id = request.headers.authorization;
+    
+    const res =  connection('ongs').where('id',ong_id)
+
+    if (res){
+        return response.json(res.delete());
+    }
+    return response.json("can't delete profile")
+
+}
