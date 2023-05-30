@@ -32,11 +32,9 @@ export const production = {
     password: env.PASSWORD || '1234',
     port: env.PORT || '5432',
   },
-  
   migrations: {
-    directory: './src/database/migrations'
-  },
-  useNullAsDefault: true
+    tableName: 'migrations'
+  }
 };
 
 export const staging = {
