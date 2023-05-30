@@ -26,9 +26,9 @@ export const production = {
     
   },
   connection: {
-    
+    host: env.HOST|| '127.0.0.1',
     database: env.DATABASE || 'production',
-    user: env.HOST || 'localhost',
+    user: env.USERNAME || 'localhost',
     password: env.PASSWORD || '1234',
     port: env.PORT || '5432',
   },
