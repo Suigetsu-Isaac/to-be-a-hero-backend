@@ -1,5 +1,5 @@
 
-exports.up = function (knex) {
+export function up (knex) {
     return knex.schema.createTable('ongs', function (table) {
         table.string('id').primary();
         table.string('name').notNullable();
@@ -8,8 +8,8 @@ exports.up = function (knex) {
         table.string('city').notNullable();
         table.string('uf', 2).notNullable();
     });
-};
+}
 
-exports.down = function (knex) {
+export function down (knex) {
     return knex.schema.dropTable('ongs');
-};
+}
