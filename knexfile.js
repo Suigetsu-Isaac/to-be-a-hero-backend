@@ -1,5 +1,5 @@
 // Update with your config settings.
-
+import {env} from 'node:process';
 export const development = {
   client: 'sqlite3',
   connection: {
@@ -26,10 +26,11 @@ export const production = {
     
   },
   connection: {
-    database: env("DATABASE"),
-    user: env("HOST"),
-    password: env("PASSWORD"),
-    port: env("PORT"),
+    
+    database: env.DATABASE || 'production',
+    user: env.HOST || 'localhost',
+    password: env.PASSWORD || '1234',
+    port: env.PORT || '5432',
   },
   
   migrations: {
