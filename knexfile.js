@@ -21,10 +21,17 @@ export const test = {
   useNullAsDefault: true
 };
 export const production = {
-  client: 'sqlite3',
+  client: 'pg',
   connection: {
-    filename: './src/database/beHero.sqlite'
+    
   },
+  connection: {
+    database: env("DATABASE"),
+    user: env("HOST"),
+    password: env("PASSWORD"),
+    port: env("PORT"),
+  },
+  
   migrations: {
     directory: './src/database/migrations'
   },
