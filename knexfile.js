@@ -28,6 +28,7 @@ export const production = {
   migrations: {
     directory: './src/database/migrations'
   },
+  useNullAsDefault: true
 };
 
 export const staging = {
