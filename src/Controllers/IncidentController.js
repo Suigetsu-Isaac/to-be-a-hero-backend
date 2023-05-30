@@ -4,6 +4,10 @@ export async function index(request, response) {
     const { page = 1 } = request.query;
     const [count] = await connection('incidents').count();
 
+    const totalIncidents = await connection('incidents')
+
+    console.log(totalIncidents)
+    
 
     const incidents = await connection('incidents')
         .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
@@ -40,7 +44,6 @@ export async function create(request, response) {
 export async function remove(request, response) {
     const { id } = request.params;
     const ong_id = request.headers.authorization;
-
     const incident = await connection('incidents')
         .where('id', id)
         .select('ong_id')
@@ -53,4 +56,16 @@ export async function remove(request, response) {
     await connection('incidents').where('id', id).delete();
 
     return response.status(204).send();
+}
+
+export async function removeNotProfile(request,response){
+    const { id } = request.params;
+    const incident = await connection('incidents').where('id',id).delete();
+
+    if (incident){
+      return  response.json({
+            remove: true
+        })
+    }
+    return response.status(401).json({ error: 'Operation not Permitted' });
 }

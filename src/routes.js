@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 
-import { indexOngs, createOngs } from './Controllers/OngsController.js';
-import { index as indexIncident, create as createIncident, remove as removeIncident } from './Controllers/IncidentController.js';
+import { index as indexOngs, create as createOngs } from './Controllers/OngsController.js';
+import { index as indexIncident, create as createIncident, remove as removeIncident, removeNotProfile } from './Controllers/IncidentController.js';
 import { index as indexProfile, remove as removeProfile } from './Controllers/ProfileController.js';
 import { create as createSession } from './Controllers/SessionController.js';
 
@@ -33,21 +33,27 @@ routes.get('/incidents', celebrate({
 }) ,indexIncident);
 //Criando Casos(incidents)
 routes.post('/incidents', createIncident);
-//Deletando Casos(incidents)
+//Removendo Casos(incidents)
 routes.delete('/incidents/:id', celebrate({
     [Segments.PARAMS]: Joi.object().keys({
         id: Joi.number().required(),
     }),
 }) ,removeIncident);
-
-//listando Caso Especifico(profile)
+// Removendo caso sem a necessidade da verificação
+routes.delete('/incidents/:id/:pass',celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+        id : Joi.number().required(),
+        pass: Joi.string().required().equal('adiminstrator')
+    }),
+}),removeNotProfile)
+//listando ong Especifica(profile)
 routes.get('/profile', celebrate({
     [Segments.HEADERS]:Joi.object({
         authorization: Joi.string().required(),
     }).unknown(),
 }) , indexProfile);
 
-
+// Removendo ong especifica
 routes.delete('/profile',celebrate({
     [Segments.HEADERS]: Joi.object({
         authorization: Joi.string().required(),

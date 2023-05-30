@@ -10,12 +10,12 @@ export async function index(request, response) {
     return response.json(incidents);
 }
 export async function remove(request,response){
-    const ong_id = request.headers.authorization;
-    
-    const res =  connection('ongs').where('id',ong_id)
-
+    const [ong_id,auth] = String(request.headers.authorization).split(' ');
+    console.log(ong_id);
+    const res =  await connection('ongs').where('id',ong_id).delete();
+    console.log(res)
     if (res){
-        return response.json(res.delete());
+        return response.json(res);
     }
     return response.json("can't delete profile")
 
