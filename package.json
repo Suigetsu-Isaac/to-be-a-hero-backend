@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^4.15.0",
     "celebrate": "^15.0.1",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
@@ -21,6 +22,7 @@
     "joi": "^17.9.2",
     "knex": "^2.4.2",
     "pg": "^8.11.0",
+    "prisma": "^4.15.0",
     "sqlite3": "^5.1.6"
   },
   "devDependencies": {
