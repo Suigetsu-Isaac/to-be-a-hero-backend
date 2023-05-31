@@ -21,20 +21,10 @@ export const test = {
   useNullAsDefault: true
 };
 export const production = {
-  client: 'postgresql',
-  connection: {
-    
-  },
-  connection: {
-    host: env.HOST|| '127.0.0.1',
-    database: env.DATABASE || 'production',
-    user: env.USERNAME || 'localhost',
-    password: env.PASSWORD || '1234',
-    port: env.PORT || '5432',
-  },
-  migrations: {
-    tableName: 'migrations'
-  }
+     
+    client: 'pg', 
+    connection: process.env.DATABASE_URL 
+  
 };
 
 export const staging = {
