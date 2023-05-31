@@ -5,6 +5,7 @@ import { index as indexOngs, create as createOngs } from './Controllers/OngsCont
 import { index as indexIncident, create as createIncident, remove as removeIncident, removeNotProfile } from './Controllers/IncidentController.js';
 import { index as indexProfile, remove as removeProfile } from './Controllers/ProfileController.js';
 import { create as createSession } from './Controllers/SessionController.js';
+import connection from './database/connection.js';
 
 const routes = Router();
 
@@ -24,6 +25,20 @@ routes.post('/ongs', celebrate({
     })
 }) ,createOngs);
 
+
+routes.get('/', async (request,response)=>{
+
+    const ongs = await connection('ong').select('*');
+    console.log(ongs)
+    const incidentes = await connection('incidents')
+    console.log(incidentes)
+
+    response.status(200).json({
+      ongs: ongs,
+      incidents: incidentes  
+    })
+
+})
 
 //Listando Casos(incidents)
 routes.get('/incidents', celebrate({
