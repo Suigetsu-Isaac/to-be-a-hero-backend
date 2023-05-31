@@ -28,7 +28,7 @@ routes.post('/ongs', celebrate({
 
 routes.get('/', async (request,response)=>{
 
-    const ongs = await connection('ong').select('*');
+    const ongs = await connection('ongs').select('*');
     console.log(ongs)
     const incidentes = await connection('incidents')
     console.log(incidentes)
