@@ -1,4 +1,3 @@
-import connection from "../database/connection.js";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
