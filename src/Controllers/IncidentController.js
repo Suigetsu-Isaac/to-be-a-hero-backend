@@ -8,7 +8,6 @@ export async function index(request, response) {
   const limit = 7;
   const skip = (page - 1) * limit;
 
-  console.log("entrei")
   
   const incidents = await prisma.incidents.findMany({
     include: {
@@ -27,12 +26,8 @@ export async function index(request, response) {
   },   
   );
 
-
-
-
-
-  console.log(incidents.length)
-  response.header("x-total-count", count["count(*)"]);
+  
+  response.header("x-total-count", count);
 
   return response.json(incidents);
 }
