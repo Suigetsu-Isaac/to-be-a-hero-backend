@@ -6,8 +6,6 @@ const prisma = new PrismaClient();
 
 export async function index(request, response) {
 
-    
-
     const ongs = await prisma.ongs.findMany();
     console.log(ongs)
     return response.json(ongs);

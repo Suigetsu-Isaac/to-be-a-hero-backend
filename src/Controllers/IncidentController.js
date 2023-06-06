@@ -4,21 +4,34 @@ const prisma = new PrismaClient();
 
 export async function index(request, response) {
   const count = await prisma.incidents.count();
+  const { page = 1 } = request.query
+  const limit = 7;
+  const skip = (page - 1) * limit;
 
+  console.log("entrei")
+  
   const incidents = await prisma.incidents.findMany({
     include: {
-      ong: {
-        select: {
-          name: true,
-          email: true,
+      ong : {
+        select:{
+          email : true,
+          name : true,
           whatsapp: true,
           city: true,
-          uf: true,
-        },
-      },
+          uf: true
+        }
+      }
     },
-  });
+    skip: skip,
+    take: limit
+  },   
+  );
 
+
+
+
+
+  console.log(incidents.length)
   response.header("x-total-count", count["count(*)"]);
 
   return response.json(incidents);
